@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".Details">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="220dp"
+        >
+        <ImageView
+            android:id="@+id/detailsCover"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:src="@drawable/ic_launcher_background"
+            android:scaleType="centerCrop"
+            />
+        <TextView
+            android:id="@+id/detailsTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="সবাই ভাল আছেন তো ! আজ থেকে আমি টেকটিউনস এ নতুন একটি কোর্স চালু করতে যাইতেছি ! এই কোর্সটির না"
+            android:layout_alignParentBottom="true"
+            android:maxLines="1"
+            android:ellipsize="end"
+            android:background="#3C000000"
+            android:padding="10dp"
+            android:textSize="20sp"
+            android:textColor="#ffffff"
+            />
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_margin="10dp"
+        >
+        <TextView
+            android:id="@+id/detailsDescription"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="আপনাদের মাঝে হয়তো এমন কেউ নেই যে কম্প্রেসরের নাম শোনেন নি ! এটাকে ফ্রিজ ও এসির হৃদপিন্ড বলা চলে ! ফ্রিজ ও এসিতে যতগুলো মালামাল ব্যবহার করা হয় তার মধ্যে এটির দাম একটু বেশি ! এখন আমি আপনাদের জানাবো যে এটি কি কাজ করে ! এর ভিতরে কি কি আছে , এটি কেমন, কত রকমের এইসব বিষয়ে ! তবে বলে রাখা ভাল যে রেফ্রিজারেশন সিস্টেম"
+            android:textSize="20sp"
+            android:lineHeight="22sp"
+            />
+    </LinearLayout>
+
+
+</LinearLayout>
