@@ -39,31 +39,50 @@ public class MainActivity extends AppCompatActivity {
         arrayList=new ArrayList<>();
 
         hashMap=new HashMap<>();
-        hashMap.put("title","Papa Tho Pailam Lyrical");
-        hashMap.put("video_id","D6L3cx3u-xc");
+        hashMap.put("itemType","BOOK");
+        hashMap.put("bookName","বাইশের বন্যা");
+        hashMap.put("writerName","তাসরিফ খান");
+        hashMap.put("bookUrl","https://ds.rokomari.store/rokomari110/ProductNew20190903/130X186/Baisher_Bonna-Tasrif_Khan-2c6fc-274727.jpg");
         arrayList.add(hashMap);
 
+
         hashMap=new HashMap<>();
+        hashMap.put("itemType","VIDEO");
         hashMap.put("title","Gandi Baat | Full Video Song");
         hashMap.put("video_id","vvLBXO94EfA");
         arrayList.add(hashMap);
 
         hashMap=new HashMap<>();
+        hashMap.put("itemType","VIDEO");
         hashMap.put("title","Fevicol Se | Dabangg 2 (Official) ");
         hashMap.put("video_id","fQqfKizTH_M");
         arrayList.add(hashMap);
 
+
         hashMap=new HashMap<>();
+        hashMap.put("itemType","BOOK");
+        hashMap.put("bookName","বাইশের বন্যা");
+        hashMap.put("writerName","তাসরিফ খান");
+        hashMap.put("bookUrl","https://ds.rokomari.store/rokomari110/ProductNew20190903/130X186/Baisher_Bonna-Tasrif_Khan-2c6fc-274727.jpg");
+        arrayList.add(hashMap);
+
+
+
+
+        hashMap=new HashMap<>();
+        hashMap.put("itemType","VIDEO");
         hashMap.put("title","Papa Tho Pailam Lyrical");
         hashMap.put("video_id","D6L3cx3u-xc");
         arrayList.add(hashMap);
 
         hashMap=new HashMap<>();
+        hashMap.put("itemType","VIDEO");
         hashMap.put("title","Gandi Baat | Full Video Song");
         hashMap.put("video_id","vvLBXO94EfA");
         arrayList.add(hashMap);
 
         hashMap=new HashMap<>();
+        hashMap.put("itemType","VIDEO");
         hashMap.put("title","Fevicol Se | Dabangg 2 (Official) ");
         hashMap.put("video_id","fQqfKizTH_M");
         arrayList.add(hashMap);
@@ -86,55 +105,93 @@ public class MainActivity extends AppCompatActivity {
  //===========================================
  //===================Adapter========================
 
-    private class MyAdapter extends RecyclerView.Adapter<MyAdapter.myViewHolder>{
-        private class myViewHolder extends RecyclerView.ViewHolder{
-            ImageView coverImage;
-            TextView title,catagory,desc;
+   class MyAdapter extends RecyclerView.Adapter{
+       int BOOK = 0;
+       int VIDEO = 1;
 
-            public myViewHolder(@NonNull View itemView) {
+        class videoViewHolder extends RecyclerView.ViewHolder{
+            TextView videoItemTitle;
+            ImageView videoItemCover;
+            public videoViewHolder(@NonNull View itemView) {
                 super(itemView);
-                coverImage=itemView.findViewById(R.id.coverImage);
-                title=itemView.findViewById(R.id.title);
-                desc=itemView.findViewById(R.id.desc);
-                catagory=itemView.findViewById(R.id.cat);
+                videoItemTitle=itemView.findViewById(R.id.videoItemTitle);
+                videoItemCover=itemView.findViewById(R.id.videoItemCover);
+            }
+        }
+
+        class bookViewHolder extends RecyclerView.ViewHolder{
+            ImageView bookCoverImage;
+            TextView bookName,writerName,buy;
+            public bookViewHolder(@NonNull View itemView) {
+                super(itemView);
+                bookCoverImage=itemView.findViewById(R.id.bookCoverImage);
+                bookName=itemView.findViewById(R.id.bookName);
+                writerName=itemView.findViewById(R.id.writerName);
 
             }
         }
 
+       @NonNull
+       @Override
+       public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+            LayoutInflater inflater=getLayoutInflater();
+            if(viewType==BOOK){
+                View MyView=inflater.inflate(R.layout.item,parent,false);
+                return new bookViewHolder(MyView);
+            }else {
+                View MyView=inflater.inflate(R.layout.video_item,parent,false);
+                return new videoViewHolder(MyView);
+            }
 
-        @NonNull
-        @Override
-        public myViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-            LayoutInflater inflater= (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            View myView=inflater.inflate(R.layout.item,parent,false);
+       }
 
-            return new myViewHolder(myView);
-        }
+       @Override
+       public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
+            if (getItemViewType(position)==BOOK){
+                bookViewHolder bookViewHolder= (MyAdapter.bookViewHolder) holder;
+                hashMap=arrayList.get(position);
+                String writerName=hashMap.get("writerName");
+                String bookName=hashMap.get("bookName");
+                String bookUrl=hashMap.get("bookUrl");
 
-        @Override
-        public void onBindViewHolder(@NonNull myViewHolder holder, int position) {
-
-            HashMap<String,String>hashMap=arrayList.get(position);
-            String title= hashMap.get("title");
-            String video_id= hashMap.get("video_id");
-            String url="https://img.youtube.com/vi/"+video_id+"/hqdefault.jpg";
-
-            Picasso.get().load(url)
-                    .into(holder.coverImage);
-
-
-            holder.catagory.setText("Song");
-            holder.title.setText(title);
-            holder.desc.setText(video_id);
-        }
-
-        @Override
-        public int getItemCount() {
-            return arrayList.size();
-        }
+                bookViewHolder.bookName.setText(bookName);
+                bookViewHolder.writerName.setText(writerName);
+                Picasso.get().load(bookUrl)
+                        .into(bookViewHolder.bookCoverImage);
 
 
-    }
+            }else if(getItemViewType(position)==VIDEO) {
+                videoViewHolder videoViewHolder= (MyAdapter.videoViewHolder) holder;
+                hashMap=arrayList.get(position);
+                String title=hashMap.get("title");
+                String video_id=hashMap.get("video_id");
+                String urlThumb="https://img.youtube.com/vi/"+video_id+"/hqdefault.jpg";;
+
+                videoViewHolder.videoItemTitle.setText(title);
+                Picasso.get().load(urlThumb)
+                        .into(videoViewHolder.videoItemCover);
+
+
+            }
+       }
+
+       @Override
+       public int getItemCount() {
+           return arrayList.size();
+       }
+
+       @Override
+       public int getItemViewType(int position) {
+            hashMap=arrayList.get(position);
+            String itemType=hashMap.get("itemType");
+
+            if(itemType.contains("BOOK")) return BOOK;
+            else return VIDEO;
+            }
+
+
+       }
+
 
     //==========================
     //==========================
